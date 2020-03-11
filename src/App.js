@@ -1,6 +1,10 @@
 import React from 'react';
 
-function App() {
+import { inject, observer } from 'mobx-react';
+
+const App = ({ todoStore: { todos } }) => {
+
+  console.log('====', todos)
   return (
     <div className="container">
       <h1>Todo List with Mobx</h1>
@@ -24,4 +28,6 @@ function App() {
   );
 }
 
-export default App;
+export default inject('todoStore')(
+  observer(App)
+);

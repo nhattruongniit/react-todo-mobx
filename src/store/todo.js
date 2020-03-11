@@ -1,15 +1,24 @@
-// import { decorate, observable } from 'mobx';
+import { decorate, observable } from "mobx"
 
-class Todo {
+class TodoStore {
   constructor() {
-    this.item = {
-      id: Math.random(),
-      title: '',
-      done: false
-    }
+    this.todos = [
+      {
+        id: Math.random(),
+        title: 'start mobx',
+        done: false
+      },
+      {
+        id: Math.random(),
+        title: 'finished mobx',
+        done: false
+      }
+    ]
   }
 }
 
-const todoStore = new Todo();
+decorate(TodoStore, {
+  todos: observable
+})
 
-export { todoStore }
+export default TodoStore;

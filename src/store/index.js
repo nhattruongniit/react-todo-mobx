@@ -1,3 +1,5 @@
-import { todoStore } from './todo';
+import TodoStore from './todo';
 
-export { todoStore }
+export default {
+  todoStore: new TodoStore()
+};
