@@ -1,29 +1,30 @@
-import React from 'react';
-
+import React, { useRef } from 'react';
 import { inject, observer } from 'mobx-react';
 
-const App = ({ todoStore: { todos } }) => {
+// components
+import TodoItem from './components/TodoItem';
 
-  console.log('====', todos)
+const App = ({ todoStore: { todos, actAddTodo, actClearTodo, actDeleteTodo, actCompletedTodo } }) => {
+  const inputEle = useRef('');
+
+  const handleAddTodo = () => {
+    actAddTodo(inputEle.current.value);
+    inputEle.current.value = '';
+  }
+
   return (
     <div className="container">
       <h1>Todo List with Mobx</h1>
       <div className="form-group">
         <label>Add Item</label>
-        <input type="text" className="form-control" name="" id="itemInput" />
+        <input type="text" className="form-control" name="" id="itemInput" ref={inputEle} />
       </div>
       <div className="buttonContainer">
-        <button className="btn btn-primary">Add To List</button>
-        <button className="btn btn-danger">Clear Todo List</button>
+        <button className="btn btn-primary" onClick={handleAddTodo}>Add Todo</button>
+        <button className="btn btn-danger" onClick={actClearTodo}>Clear Todo</button>
       </div>
       <h3>Todo List</h3>
-      <ul id="todoList">
-        <li className="completed well">
-          <label>dinner</label>
-          <button className="btn btn-success">Complete</button>
-          <button className="btn btn-danger">Delete</button>
-        </li>
-      </ul>
+      <TodoItem todos={todos} actDeleteTodo={actDeleteTodo} actCompletedTodo={actCompletedTodo} />
     </div>
   );
 }
