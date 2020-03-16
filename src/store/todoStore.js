@@ -6,6 +6,8 @@ class TodoStore {
   }
 
   actAddTodo = name => {
+    if (name === '') return;
+
     const newTodo = {
       id: Date.now(),
       name,
@@ -18,8 +20,10 @@ class TodoStore {
     this.todos = [];
   }
 
-  actCompletedTodo = id => {
-    const newTodos = [];
+  actCompletedTodo = index => {
+    const newTodos = [...this.todos];
+    newTodos[index].isDone = !newTodos[index].isDone;
+    this.todos = newTodos;
   }
 
   actDeleteTodo = id => {

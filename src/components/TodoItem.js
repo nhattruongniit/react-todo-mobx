@@ -12,12 +12,16 @@ const TodoItem = ({ todos, actDeleteTodo, actCompletedTodo }) => {
 
   return (
     <ul id="todoList">
-      {todos.map(item => {
+      {todos.map((item, index) => {
+        const classBtnComplete = `${item.isDone ? 'btn-success' : 'btn-primary'}`;
+
         return (
           <li key={item.id} className="completed well">
-            <label className={item.done && 'line-through'}>{item.name}</label>
-            <button className="btn btn-success" onClick={handleCompleted(item.id)}>Complete</button>
-            <button className="btn btn-danger" onClick={handleDelete(item.id)}>Delete</button>
+            <label className={item.isDone && 'line-through'}>{item.name}</label>
+            <div className="buttonArea">
+              <button className={`btn ${classBtnComplete}`} onClick={handleCompleted(index)}>{item.isDone ? 'Completed' : 'Complete'}</button>
+              <button className="btn btn-danger" onClick={handleDelete(item.id)}>Delete</button>
+            </div>
           </li>
         )
       })}
