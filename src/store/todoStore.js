@@ -1,13 +1,14 @@
-import { decorate, observable, action } from "mobx"
+import { makeAutoObservable } from "mobx"
 
 class TodoStore {
+  todos = [];
+
   constructor() {
-    this.todos = []
+    makeAutoObservable(this);
   }
 
   actAddTodo = name => {
     if (name === '') return;
-
     const newTodo = {
       id: Date.now(),
       name,
@@ -31,14 +32,5 @@ class TodoStore {
     this.todos = newTodos;
   }
 }
-
-decorate(TodoStore, {
-  todos: observable,
-
-  actAddTodo: action,
-  actClearTodo: action,
-  actDeleteTodo: action,
-  actCompletedTodo: action,
-})
 
 export default TodoStore;
